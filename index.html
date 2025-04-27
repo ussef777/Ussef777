@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ussef777 - Music Producer</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(to right, #111, #333);
+      animation: slideIn 1s ease-out;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: gold;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInSection 1s ease-in-out forwards;
+    }
+    .section:nth-child(even) {
+      animation-delay: 0.5s;
+    }
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .video-container iframe {
+      width: 300px;
+      height: 200px;
+      border: none;
+      border-radius: 10px;
+    }
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin: 10px;
+      border: 2px solid gold;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeInImage 1s ease-in-out forwards;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+    }
+    input, textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      background-color: gold;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #aaa;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeInSection {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeInImage {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎵 Welcome to Ussef777's World of Music | مرحبا بكم في عالم Ussef777 للموسيقى</h1>
+</header>
+
+<section class="section" id="youtube">
+  <h2>🎬 Latest Videos | آخر الفيديوهات</h2>
+  <div class="video-container" id="youtube-videos"></div>
+</section>
+
+<section class="section" id="about">
+  <h2>🎧 About Me | حول Ussef777</h2>
+  <p>Youssef BOUADDI, better known as Ussef777, is a 20-year-old music producer from Morocco. Starting his journey at just 13 years old, he has crafted a sound that reflects his passion, ambition, and creative spirit. Now fully focused on his career, Ussef777 is ready to leave his mark on the global music scene.</p>
+</section>
+
+<section class="section" id="gallery">
+  <h2>📸 Instagram Gallery | معرض الصور</h2>
+  <div class="gallery">
+    <!-- Replace with Instagram image links -->
+    <img src="LINK_TO_YOUR_IMAGE_1" alt="Photo 1">
+    <img src="LINK_TO_YOUR_IMAGE_2" alt="Photo 2">
+    <img src="LINK_TO_YOUR_IMAGE_3" alt="Photo 3">
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>📩 Contact Me | تواصل معي</h2>
+  <form action="mailto:bouaddiyoussef777@gmail.com" method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Your Name | اسمك" required>
+    <input type="email" name="email" placeholder="Your Email | بريدك الإلكتروني" required>
+    <textarea name="message" rows="5" placeholder="Your Message | رسالتك" required></textarea>
+    <button type="submit">Send | إرسال</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 Ussef777. All rights reserved. | جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  const apiKey = 'AIzaSyCVx6d0LR5hZdURbQhUZcOgDULRrBiwLIo';
+  const channelId = 'UCNg7vRyIvrb6tDo_F13IQXQ';
+  const maxResults = 6;
+
+  fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`)
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById('youtube-videos');
+      data.items.forEach(item => {
+        if (item.id.kind === "youtube#video") {
+          container.innerHTML += `
+            <iframe src="https://www.youtube.com/embed/${item.id.videoId}" allowfullscreen></iframe>
+          `;
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error loading YouTube videos:', error);
+    });
+</script>
+
+</body>
+</html>
